@@ -1,0 +1,98 @@
+  
+ <!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset='UTF-8'>
+   <title></title>
+   <link rel='stylesheet' type='text/css' href='styles.css'>
+
+</head>
+
+<body translate='no' >
+
+<script src='https://fb.me/react-0.14.3.js'></script>
+<script src='https://fb.me/react-dom-0.14.3.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/axios/0.8.1/axios.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js'></script>
+
+<script type='text/babel'>
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+document.title = getParameterByName('title');
+
+var Page = React.createClass({
+  
+  getInitialState: function () {
+    return { 
+            data:[]
+
+           };
+  },
+  
+   componentDidMount: function() {
+   
+  var th = this;
+    this.serverRequest = 
+      axios.get('/apijson/'+getParameterByName(id))
+     
+        .then(function(result) {    
+      
+          th.setState({
+            data: result.data,
+ 
+          });
+      
+        })
+     
+     
+  },
+  
+  render: function () {
+     
+	 
+		 
+ console.log(this.state.data);
+		
+	
+          return (
+          <div>
+		  <select>
+	{this.state.data.map(function(item) {
+
+          return (<option value=item.option>item.option</option>)
+		  
+		  })}
+		  </select>
+	</div>
+		
+		)
+
+}
+  
+});
+
+ReactDOM.render(<Page/>, document.getElementById('page'));
+  
+
+</script>
+
+
+<div class='page'>
+ 
+ 
+  </div>
+  
+
+
+</body>
+</html>
