@@ -5,7 +5,10 @@
 <head>
   <meta charset='UTF-8'>
    <title></title>
-   <link rel='stylesheet' type='text/css' href='styles.css'>
+   
+ 
+   <link rel='stylesheet' type='text/css' href='http://localhost:3000/styles.css'>
+
 
 </head>
 
@@ -14,62 +17,70 @@
 <script src='https://fb.me/react-0.14.3.js'></script>
 <script src='https://fb.me/react-dom-0.14.3.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/axios/0.8.1/axios.min.js'></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js'></script>
 
-<script type='text/babel'>
-
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+<script type="text/babel" >
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
-document.title = getParameterByName('title');
+var jsonobj=JSON.parse(getCookie("json"));
 
-var Page = React.createClass({
-  
-  getInitialState: function () {
-    return { 
-            data:[]
+document.title=jsonobj.title;
 
-           };
-  },
-  
-   componentDidMount: function() {
-   
-  var th = this;
-    this.serverRequest = 
-      axios.get('/apijson/'+getParameterByName(id))
-     
-        .then(function(result) {    
-      
-          th.setState({
-            data: result.data,
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+var array=[];
+array.push(["option","freq"]);
+for(var i=0;i<jsonobj.chart.length;i++){
+var ar=[];
+ar.push(jsonobj.chart[i].option);
+ar.push(jsonobj.chart[i].freq);
+
+	array.push(ar);
+}
+console.log(array);
+  var data = google.visualization.arrayToDataTable(array);
+  var options = {'title':"",'width':900, 'height':700,'backgroundColor': 'transparent'};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+
+
+
+var Select = React.createClass({
  
-          });
-      
-        })
-     
-     
-  },
   
   render: function () {
      
 	 
-		 
- console.log(this.state.data);
 		
 	
           return (
           <div>
+		  <h2>{jsonobj.title}</h2>
+		  <h2 style={{fontSize: "14px"}}><b>I'd like to vote for...:</b></h2>
 		  <select>
-	{this.state.data.map(function(item) {
+	{jsonobj.chart.map(function(item) {
 
-          return (<option value=item.option>item.option</option>)
+          return (<option value={item.option}>{item.option}</option>)
 		  
 		  })}
 		  </select>
@@ -81,15 +92,15 @@ var Page = React.createClass({
   
 });
 
-ReactDOM.render(<Page/>, document.getElementById('page'));
-  
+ReactDOM.render(<Select/>, document.getElementById('sel'));
 
 </script>
 
 
 <div class='page'>
- 
- 
+
+ <div id="sel"></div>
+ <div id="piechart"></div>
   </div>
   
 
