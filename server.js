@@ -56,6 +56,57 @@ router.get('/polls/:id', function (req, res) {
 	
 });
 
+router.get('/vote/:id', function (req, res) {
+	var option=req.query.opt;
+var resp=res;
+
+ var myquery = { _id: req.params.id };
+ var newvalues={};
+  
+  db.collection("polls").findOne(myquery,function(err, result) {
+	  if (err) throw err;
+	  
+	  
+	  
+	  for(var i=0;i<result.chart.length;i++){
+		 if(result.chart[i].option==option){
+		  result.chart[i].freq=result.chart[i].freq+1;
+	  newvalues=result;
+		 }
+	  }
+	  
+		db.collection("polls").findOne({userip: req.headers['x-forwarded-for'] || 
+        req.connection.remoteAddress || 
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress},function(err, result) {
+			if (err) { 
+			resp.json({msg:"Error: You can only vote once a poll. [user-or-ip-voted]"});
+			return;
+			};
+			
+		});
+
+		console.log(newvalues);
+  db.collection("polls").updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+	
+		 db.collection("uservote").insertOne({userip: req.headers['x-forwarded-for'] || 
+        req.connection.remoteAddress || 
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress, idpoll: req.params.id}, function(err, res) {
+		if (err) throw err;
+		});
+		
+    resp.json({msg: "You've voted for: " +option});
+    
+  });
+  
+  });
+
+
+	
+});
+
 router.get('/', function (req, res) {
 	res.sendFile("/index.html");
 });

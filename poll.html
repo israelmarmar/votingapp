@@ -63,21 +63,16 @@ console.log(array);
   chart.draw(data, options);
 }
 
-
-
 var Select = React.createClass({
  
   
   render: function () {
-     
-	 
-		
 	
           return (
           <div>
 		  <h2>{jsonobj.title}</h2>
 		  <h2 style={{fontSize: "14px"}}><b>I'd like to vote for...:</b></h2>
-		  <select>
+		  <select id="selec">
 	{jsonobj.chart.map(function(item) {
 
           return (<option value={item.option}>{item.option}</option>)
@@ -94,15 +89,27 @@ var Select = React.createClass({
 
 ReactDOM.render(<Select/>, document.getElementById('sel'));
 
-</script>
+function Get(yourUrl){
+    var Httpreq = new XMLHttpRequest();
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;          
+}
 
+function submit(){
+alert(document.getElementById('selec').value);
+}
+
+
+
+</script>
 
 <div class='page'>
 
  <div id="sel"></div>
+ <button onclick="submit()">Submit</button>
  <div id="piechart"></div>
   </div>
-  
 
 
 </body>
