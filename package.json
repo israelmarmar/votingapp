@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "author": "Israel Martins",
   "description": "Voting App",
+   "files": [
+    "server.js",
+    "index.html",
+     "poll.html",
+     "poll.jsx",
+     "styles.css"
+  ],
   "engines":{
     "node": "latest",
     "npm": "latest",
