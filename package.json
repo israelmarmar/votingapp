@@ -1,0 +1,19 @@
+{
+  "name": "votingapp",
+  "version": "0.0.1",
+  "author": "Israel Martins",
+  "description": "Voting App",
+  "engines":{
+    "node": "latest",
+    "npm": "latest",
+    "mongodb":"latest"
+  },
+"dependencies": {
+    "express": "latest"
+  },
+
+"scripts": {
+  "start": "node app.js"
+}
+ 
+}
