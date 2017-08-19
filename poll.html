@@ -20,7 +20,24 @@
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js'></script>
 
-<script type="text/babel" >
+<div class='page'>
+
+ <div id="sel"></div>
+ <button onclick="send()">Submit</button>
+ <script>
+ var jsonobj=JSON.parse(getCookie("json"));
+function send(){
+var obj=JSON.parse(Get("http://localhost:3000/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
+alert(obj.msg);
+}
+
+function Get(yourUrl){
+    var Httpreq = new XMLHttpRequest();
+    Httpreq.open("GET",yourUrl,false);
+    Httpreq.send(null);
+    return Httpreq.responseText;          
+}
+
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -36,6 +53,14 @@ function getCookie(cname) {
     }
     return "";
 }
+ </script>
+
+ <div id="piechart"></div>
+  </div>
+
+
+
+<script type="text/babel" >
 
 var jsonobj=JSON.parse(getCookie("json"));
 
@@ -89,27 +114,7 @@ var Select = React.createClass({
 
 ReactDOM.render(<Select/>, document.getElementById('sel'));
 
-function Get(yourUrl){
-    var Httpreq = new XMLHttpRequest();
-    Httpreq.open("GET",yourUrl,false);
-    Httpreq.send(null);
-    return Httpreq.responseText;          
-}
-
-function submit(){
-alert(document.getElementById('selec').value);
-}
-
-
-
 </script>
-
-<div class='page'>
-
- <div id="sel"></div>
- <button onclick="submit()">Submit</button>
- <div id="piechart"></div>
-  </div>
 
 
 </body>

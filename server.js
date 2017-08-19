@@ -75,31 +75,38 @@ var resp=res;
 		 }
 	  }
 	  
-		db.collection("polls").findOne({userip: req.headers['x-forwarded-for'] || 
+		db.collection("uservote").findOne({userip: req.headers['x-forwarded-for'] || 
         req.connection.remoteAddress || 
         req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress},function(err, result) {
-			if (err) { 
+        req.connection.socket.remoteAddress, idpoll: req.params.id},function(err, result) {
+			console.log("oi");
+			if (err) throw err;
+			console.log(result);
+			
+			if(result){
 			resp.json({msg:"Error: You can only vote once a poll. [user-or-ip-voted]"});
+			resp.end;
 			return;
-			};
+			}else{
+				db.collection("polls").updateOne(myquery, newvalues, function(err, res) {
+				if (err) throw err;
+	
+				db.collection("uservote").insertOne({userip: req.headers['x-forwarded-for'] || 
+				req.connection.remoteAddress || 
+				req.socket.remoteAddress ||
+				req.connection.socket.remoteAddress, idpoll: req.params.id}, function(err, res) {
+				if (err) throw err;
+				});
+		
+				resp.json({msg: "You've voted for: " +option});
+    
+			});
+  
+			}
+		
 			
 		});
 
-		console.log(newvalues);
-  db.collection("polls").updateOne(myquery, newvalues, function(err, res) {
-    if (err) throw err;
-	
-		 db.collection("uservote").insertOne({userip: req.headers['x-forwarded-for'] || 
-        req.connection.remoteAddress || 
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress, idpoll: req.params.id}, function(err, res) {
-		if (err) throw err;
-		});
-		
-    resp.json({msg: "You've voted for: " +option});
-    
-  });
   
   });
 
@@ -108,7 +115,7 @@ var resp=res;
 });
 
 router.get('/', function (req, res) {
-	res.sendFile("/index.html",{root: __dirname});
+	res.sendFile("/index.html");
 });
 	
 
