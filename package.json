@@ -13,7 +13,7 @@
   },
 
 "scripts": {
-  "start": "NODE_PATH=. node server.js"
+  "start": "node server.js"
 }
  
 }
