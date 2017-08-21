@@ -27,7 +27,7 @@
  <script>
  var jsonobj=JSON.parse(getCookie("json"));
 function send(){
-var obj=JSON.parse(Get("http://localhost:3000/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
+var obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
 alert(obj.msg);
 }
 
