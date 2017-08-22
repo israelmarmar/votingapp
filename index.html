@@ -14,12 +14,17 @@
 
 <script src="https://fb.me/react-0.14.3.js"></script>
 <script src="https://fb.me/react-dom-0.14.3.js"></script>
-<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/axios/0.8.1/axios.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 
 <script type="text/babel" src="poll.jsx"></script>
 
-
+<div class="navbar">
+  <form action="/access-token">
+  <input type="submit" class="login-button btn btn-block btn-Twitter" value="Sign in with Twitter" />
+    </form>
+  </div>
+  
 <div class="page">
   <h1>voting</h1>
   <h3>Select a poll to see the results and vote</h3>
