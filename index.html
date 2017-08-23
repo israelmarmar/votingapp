@@ -20,7 +20,10 @@
 	<script>
             $(function() {
                 $("#sign-in-with-twitter").on("click", function() {
-                    window.location.href = "/request-token";
+                    $.post( "https://api.twitter.com/oauth/request_token", {oauth_callback: "https://votingapp-isrmm.herokuapp.com"})
+  .done(function( data ) {
+    alert( "Data Loaded: " + data );
+  });
                 });
             });
         </script>
