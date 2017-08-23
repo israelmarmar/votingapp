@@ -3,9 +3,9 @@ var Twitter = require("node-twitter-api");
  var secret = require("./lib/secret.json");
 
     var twitter = new Twitter({
-        consumerKey: secret.twitter.consumerKey,
-    	consumerSecret: secret.twitter.consumerSecret,
-    	callback: secret.twitter.callbackUrl
+        consumerKey: "tLmXhGJFnNeCt0Kc8FSkIgdkJ",
+    	consumerSecret:"D8aCOoe7lsEXH4Zu5TzgZphmwmyIp3bxnKTftM281xjeEfYZrI",
+    	callback: "/access-token"
     });
   
 
