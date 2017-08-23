@@ -124,8 +124,6 @@ var resp=res;
 });
 
 router.get('/', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.sendFile("/index.html");
 });
 
@@ -163,15 +161,11 @@ app.listen(port, function () {
  console.log("ligado");
 });
 
-app.use(function (req, res, next) {
-res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
-res.header("Access-Control-Allow-Methods", "GET, POST, PUT, HEAD, DELETE, OPTIONS");
-res.header("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
 
-if (req.method === 'OPTIONS') {
-return res.end();
-}
-
-    
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
+
 app.use('/', router);
