@@ -20,7 +20,7 @@
 	<script>
             $(function() {
                 $("#sign-in-with-twitter").on("click", function() {
-                    $.post( "https://cors.now.sh/https://api.twitter.com/oauth/request_token", {oauth_callback: "https://votingapp-isrmm.herokuapp.com"})
+                    $.post( "https://api.twitter.com/oauth/request_token", {oauth_callback: "https://votingapp-isrmm.herokuapp.com"})
   .done(function( data ) {
     alert( "Data Loaded: " + data );
   });
