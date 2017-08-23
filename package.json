@@ -3,17 +3,16 @@
   "version": "0.0.1",
   "author": "Israel Martins",
   "description": "Voting App",
-  "engines":{
+  "engines": {
     "node": "latest",
     "npm": "latest"
   },
-"dependencies": {
+  "dependencies": {
     "express": "latest",
-        "mongodb": "^2.2.29"
+    "mongodb": "^2.2.29",
+    "node-twitter-api": "^1.8.0"
   },
-
-"scripts": {
-  "start": "node server.js"
-}
- 
+  "scripts": {
+    "start": "node server.js"
+  }
 }
