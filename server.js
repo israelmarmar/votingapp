@@ -150,8 +150,11 @@ router.get("/request-token", function(req, res) {
                 twitter.verifyCredentials(accessToken, accessSecret, function(err, user) {
                     if (err)
                         res.status(500).send(err);
-                    else
-                        res.send(user);
+                    else{
+                        res.setHeader("Set-Cookie", ["json="+user]);
+                        res.redirect("https://votingapp-isrmm.herokuapp.com/");
+                        
+                    }
                 });
         });
     });
