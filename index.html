@@ -22,6 +22,7 @@
 			
 		 alert(jsonuser);
 		
+		
 		function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -37,6 +38,8 @@
     }
     return "";
 }
+		 $("#sign-in-with-twitter").text=JSON.parse(jsonuser).name+" Sign out";
+		 
              $(function() {
 				
                 $("#sign-in-with-twitter").on("click", function() {
