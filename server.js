@@ -151,7 +151,7 @@ router.get("/request-token", function(req, res) {
                     if (err)
                         res.status(500).send(err);
                     else{
-                        res.setHeader("Set-Cookie", ["json="+user.screen_name]);
+                        res.setHeader("Set-Cookie", ["json="+JSON.stringify(user)]);
                         res.redirect("https://votingapp-isrmm.herokuapp.com/");
                     }
                 });
