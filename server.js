@@ -58,7 +58,7 @@ router.get('/polls/:id', function (req, res) {
 
 	
 		if(result)
-		res.cookie("json",JSON.stringify(result)]);
+		res.setHeader("Set-Cookie", ["json="+JSON.stringify(result)]);
 	res.sendFile("/poll.html",{root: __dirname});
 
     
