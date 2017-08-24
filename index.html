@@ -38,7 +38,8 @@
     }
     return "";
 }
-		 $("#sign-in-with-twitter").text=JSON.parse(jsonuser).name+" Sign out";
+		if(jsonuser)
+		 $("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 		 
              $(function() {
 				
