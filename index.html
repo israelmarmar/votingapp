@@ -38,12 +38,12 @@
     }
     return "";
 }
-		if(jsonuser){
+		 
+             $(function() {
+				 if(jsonuser){
 			alert(JSON.parse(jsonuser).name);
 		 $("#sign-in-with-twitter").text(""+JSON.parse(jsonuser).name+" Sign out");
 		}
-		 
-             $(function() {
 				
                 $("#sign-in-with-twitter").on("click", function() {
                     window.location.href = "/request-token";
