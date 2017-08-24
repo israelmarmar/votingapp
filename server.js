@@ -1,6 +1,6 @@
 
 var Twitter = require("node-twitter-api");
- var secret = require("./lib/secret.json");
+var secret = require("./lib/secret.json");
 
     var twitter = new Twitter({
         consumerKey: "tLmXhGJFnNeCt0Kc8FSkIgdkJ",
@@ -9,7 +9,8 @@ var Twitter = require("node-twitter-api");
     });
   
 
-    var _requestSecret;
+var _requestSecret;
+var _user;
 
 var express = require('express');
 var app = express();
@@ -58,7 +59,7 @@ router.get('/polls/:id', function (req, res) {
 
 	
 		if(result)
-		res.setHeader("Set-Cookie", ["json="+JSON.stringify(result)]);
+		res.setHeader("Set-Cookie", ["json="+JSON.stringify(result),"user="+JSON.stringify(_user)]);
 	res.sendFile("/poll.html",{root: __dirname});
 
     
@@ -132,7 +133,7 @@ router.get("/request-token", function(req, res) {
             if (err)
                 res.status(500).send(err);
             else {
-                _requestSecret = requestSecret;
+                _requestSecret = requestSecret;         
                 res.redirect("https://api.twitter.com/oauth/authenticate?oauth_token=" + requestToken);
             }
         });
@@ -151,6 +152,7 @@ router.get("/request-token", function(req, res) {
                     if (err)
                         res.status(500).send(err);
                     else{
+                        _user=user;
                         res.setHeader("Set-Cookie", ["user="+JSON.stringify(user)]);
                         res.redirect("https://votingapp-isrmm.herokuapp.com/");
                     }
