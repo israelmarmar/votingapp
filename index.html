@@ -42,7 +42,7 @@
 				 if(jsonuser){
 		 		$("#sign-in-with-twitter").text(""+JSON.parse(jsonuser).name+" Sign out");
 					$("#sign-in-with-twitter").on("click", function() {
-				    document.cookie="";
+				    document.cookie="user=;";
                     window.location.href=window.location.href;
                 });
 					 
