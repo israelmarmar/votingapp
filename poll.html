@@ -18,7 +18,14 @@
 <script src='https://fb.me/react-dom-0.14.3.js'></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js'></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
+	<div class="navbar">
+  <button class="btn btn-primary" id="sign-in-with-twitter"></button>
+  </div>
+	
+	
+	
 <div class='page'>
 
  <div id="sel"></div>
@@ -27,7 +34,22 @@
  var jsonobj=JSON.parse(getCookie("json"));
 	 var jsonuser=getCookie("user");
 			
-		 alert(jsonuser);
+	 $(function() {
+				 
+				 if(jsonuser){
+		 		$("#sign-in-with-twitter").text(""+JSON.parse(jsonuser).name+" Sign out");
+					$("#sign-in-with-twitter").on("click", function() {
+				    document.cookie="user=;";
+                    window.location.href=window.location.href;
+                });
+					 
+				}else{
+				$("#sign-in-with-twitter").text("Sign in with Twitter");
+                $("#sign-in-with-twitter").on("click", function() {
+                    window.location.href = "/request-token";
+                });
+				}
+            });
 	 
 function send(){
 var obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
