@@ -39,7 +39,7 @@
     return "";
 }
 		if(jsonuser){
-			alert("oi");
+			alert(JSON.parse(jsonuser).name);
 		 $("#sign-in-with-twitter").html(JSON.parse(jsonuser).name+" Sign out");
 		}
 		 
