@@ -26,6 +26,10 @@
  <button onclick="send()">Submit</button>
  <script>
  var jsonobj=JSON.parse(getCookie("json"));
+	 var jsonuser=getCookie("user");
+			
+		 alert(jsonuser);
+	 
 function send(){
 var obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
 alert(obj.msg);
