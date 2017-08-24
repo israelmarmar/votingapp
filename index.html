@@ -38,8 +38,10 @@
     }
     return "";
 }
-		if(jsonuser)
+		if(jsonuser){
+			alert("oi");
 		 $("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
+		}
 		 
              $(function() {
 				
