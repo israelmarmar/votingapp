@@ -132,7 +132,7 @@ var resp=res;
 });
 
 router.get('/', function (req, res) {
-	//res.setHeader("Set-Cookie", ["user="+req.session.user]);
+	res.setHeader("Set-Cookie", ["user="+req.session.user]);
 	res.sendFile("/index.html");
 });
 
