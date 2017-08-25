@@ -143,7 +143,7 @@ router.get('/user/', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-	res.cookie("hghjjh","teste");
+	res.cookie("user",req.session.user);
 	res.sendFile("/main.html",{root: __dirname});
 });
 
