@@ -136,8 +136,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/sign-out', function (req, res) {
-	_user="";
-	res.setHeader("Set-Cookie", ["user="+JSON.stringify(_user)]);
+	req.session.reset();
 	res.redirect("https://votingapp-isrmm.herokuapp.com");
 });
 
