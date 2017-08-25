@@ -131,7 +131,7 @@ var resp=res;
 });
 
 router.get('/', function (req, res) {
-	res.setHeader("Set-Cookie", ["user="+req.session.user]);
+	//res.setHeader("Set-Cookie", ["user="+req.session.user]);
 	res.sendFile("/index.html");
 });
 
@@ -164,7 +164,7 @@ router.get("/request-token", function(req, res) {
                     if (err)
                         res.status(500).send(err);
                     else{
-                        req.session.user = user;
+                        //req.session.user = user;
                         res.redirect("https://votingapp-isrmm.herokuapp.com/");
                     }
                 });
