@@ -125,6 +125,7 @@ var resp=res;
 });
 
 router.get('/', function (req, res) {
+	if(_user)
 	res.setHeader("Set-Cookie", ["user="+JSON.stringify(_user)]);
 	res.sendFile("/index.html");
 });
