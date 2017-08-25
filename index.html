@@ -36,13 +36,14 @@
         }
           return "";
       }
-		 
+		 alert(isNaN(jsonuser));
              $(function() {
 				 
-				if((!isNan(jsonuser))){
-		 		$("#sign-in-with-twitter").text(""+JSON.parse(jsonuser).name+" Sign out");
+				 
+				if(isNaN(jsonuser)){
+		 		$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 					$("#sign-in-with-twitter").on("click", function() {
-                    window.location.href="https://votingapp-isrmm.herokuapp.com/sign-out";
+				     window.location.href="https://votingapp-isrmm.herokuapp.com/sign-out";
                 });
 					 
 				}else{
