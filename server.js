@@ -125,13 +125,13 @@ var resp=res;
 });
 
 router.get('/', function (req, res) {
-	if(_user)
-	res.setHeader("Set-Cookie", ["user="+JSON.stringify(_user)]);
+	
 	res.sendFile("/index.html");
 });
 
 router.get('/sign-out', function (req, res) {
-	_user="";
+	_user=null;
+	res.setHeader("Set-Cookie", ["user="+JSON.stringify(_user)]);
 	res.redirect("https://votingapp-isrmm.herokuapp.com");
 });
 
