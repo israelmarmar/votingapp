@@ -44,7 +44,7 @@ function encod(string){
 	return Base64.encode(string).replace(/\+|\/|=/gi,"");
 }
 
-app.use(express.static(__dirname + '/'));
+router.use(express.static(__dirname + '/'));
 
 router.get('/apijson', function (req, res) {
 	var array=[];
@@ -99,7 +99,6 @@ var resp=res;
         req.connection.remoteAddress || 
         req.socket.remoteAddress ||
         req.connection.socket.remoteAddress, idpoll: req.params.id},function(err, result) {
-			console.log("oi");
 			if (err) throw err;
 			console.log(result);
 			
@@ -133,23 +132,24 @@ var resp=res;
 });
 
 router.get('/user/:user', function (req, res) {
-	res.cookie('username', req.params.user)
-	    .send('<p>Cookie Set: <a href="/user">View Here</a>');
+	req.session.user=req.params.user;
+
+	    res.send('<p>Cookie Set: <a href="/user">View Here</a>');
 });
 
 router.get('/user/', function (req, res) {
-	res.send(req.cookies.username);
+	
+	res.send(req.session.user);
 });
 
 router.get('/', function (req, res) {
-	
-	res.cookie("user",req.session.user);
-	res.sendFile("/index.html");
+	res.cookie("hghjjh","teste");
+	res.sendFile("/main.html",{root: __dirname});
 });
 
 router.get('/sign-out', function (req, res) {
 	req.session.reset();
-	res.clearCookie('user')
+	res.clearCookie('user');
 	res.redirect("https://votingapp-isrmm.herokuapp.com");
 });
 
