@@ -39,7 +39,6 @@ router.use(session({secret: 'some secret key',resave: "", // add this; choose th
   saveUninitialized: "" // add this; choose the value you want from the docs
 				}));
 
-app.use("/", express.static(__dirname + '/'));
 
 function encod(string){
 	return Base64.encode(string).replace(/\+|\/|=/gi,"");
@@ -131,13 +130,24 @@ var resp=res;
 	
 });
 
+router.get('/user/:user', function (req, res) {
+	res.cookie('username', req.params.user)
+	    .send('<p>Cookie Set: <a href="/user">View Here</a>');
+});
+
+router.get('/user/', function (req, res) {
+	res.send(req.cookies.username);
+});
+
 router.get('/', function (req, res) {
-	res.setHeader("Set-Cookie", ["user="+req.session.user]);
+	
+	res.cookie("user",req.session.user);
 	res.sendFile("/index.html");
 });
 
 router.get('/sign-out', function (req, res) {
 	req.session.reset();
+	res.clearCookie('user')
 	res.redirect("https://votingapp-isrmm.herokuapp.com");
 });
 
@@ -181,6 +191,8 @@ app.listen(port, function () {
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+res.header('Access-Control-Allow-Credentials', true);
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     next();
 });
 
