@@ -44,6 +44,8 @@ function encod(string){
 	return Base64.encode(string).replace(/\+|\/|=/gi,"");
 }
 
+router.use(express.static(__dirname + '/public'));
+
 router.get('/apijson', function (req, res) {
 	var array=[];
 	
