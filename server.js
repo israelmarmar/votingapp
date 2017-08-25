@@ -131,7 +131,7 @@ router.get('/', function (req, res) {
 
 router.get('/sign-out', function (req, res) {
 	_user=null;
-	res.sendFile("/index.html");
+	res.redirect("https://votingapp-isrmm.herokuapp.com");
 });
 
 router.get("/request-token", function(req, res) {
