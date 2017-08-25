@@ -16,6 +16,9 @@ var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
 var router = express.Router();
+var cookieParser = require('cookie-parser');
+var session=require('express-session');
+app.use(cookieParser);
 var mongodb= require("mongodb");
 var MongoClient = mongodb.MongoClient;
 var urldb =process.env.MONGOLAB_URI || 'mongodb://urlshort:78292725@ds127993.mlab.com:27993/israelmarmar';     
@@ -32,11 +35,10 @@ MongoClient.connect(urldb, function(err, database) {
 });
 
 
-app.use(express.cookieParser());
-app.use(express.session({cookieName: 'session',
-  secret: 'random_string_goes_here',
-  duration: 30 * 60 * 1000,
-  activeDuration: 5 * 60 * 1000,}));
+app.use(cookieParser());
+app.use(session({secret: 'some secret key',resave: "", // add this; choose the value you want from the docs
+  saveUninitialized: "" // add this; choose the value you want from the docs
+				}));
 
 app.use("/", express.static(__dirname + '/'));
 
@@ -164,7 +166,7 @@ router.get("/request-token", function(req, res) {
                     if (err)
                         res.status(500).send(err);
                     else{
-                        //req.session.user = user;
+                        req.session.user = user;
                         res.redirect("https://votingapp-isrmm.herokuapp.com/");
                     }
                 });
