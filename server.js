@@ -18,7 +18,6 @@ var port = process.env.PORT || 3000;
 var router = express.Router();
 var cookieParser = require('cookie-parser');
 var session=require('express-session');
-app.use(cookieParser);
 var mongodb= require("mongodb");
 var MongoClient = mongodb.MongoClient;
 var urldb =process.env.MONGOLAB_URI || 'mongodb://urlshort:78292725@ds127993.mlab.com:27993/israelmarmar';     
@@ -35,8 +34,8 @@ MongoClient.connect(urldb, function(err, database) {
 });
 
 
-app.use(cookieParser());
-app.use(session({secret: 'some secret key',resave: "", // add this; choose the value you want from the docs
+router.use(cookieParser());
+router.use(session({secret: 'some secret key',resave: "", // add this; choose the value you want from the docs
   saveUninitialized: "" // add this; choose the value you want from the docs
 				}));
 
