@@ -59,7 +59,7 @@ router.get('/polls/:id', function (req, res) {
 
 	
 		if(result)
-		res.setHeader("Set-Cookie", ["json="+JSON.stringify(result),"user="+JSON.stringify(_user)]);
+		res.setHeader("Set-Cookie", ["json="+JSON.stringify(result)]);
 	res.sendFile("/poll.html",{root: __dirname});
 
     
@@ -159,8 +159,7 @@ router.get("/request-token", function(req, res) {
                     if (err)
                         res.status(500).send(err);
                     else{
-                        _user=user;
-						res.setHeader("Set-Cookie", ["user="+JSON.stringify(_user)]);
+                        req.session.user = user;
                         res.redirect("https://votingapp-isrmm.herokuapp.com/");
                     }
                 });
