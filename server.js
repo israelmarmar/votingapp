@@ -131,7 +131,7 @@ var resp=res;
 });
 
 router.get('/', function (req, res) {
-	
+	res.setHeader("Set-Cookie", ["user="+req.session.user]);
 	res.sendFile("/index.html");
 });
 
@@ -178,7 +178,6 @@ app.listen(port, function () {
 
 
 app.use(function(req, res, next) {
-	res.setHeader("Set-Cookie", ["user="+req.session.user]);
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
