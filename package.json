@@ -8,6 +8,7 @@
     "npm": "latest"
   },
   "dependencies": {
+    "client-sessions": "^0.8.0",
     "express": "latest",
     "mongodb": "^2.2.29",
     "node-twitter-api": "^1.8.0"
