@@ -11,7 +11,7 @@ var secret = require("./lib/secret.json");
 
 var _requestSecret;
 var _user;
-var session = require('client-sessions');
+
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
@@ -31,12 +31,12 @@ MongoClient.connect(urldb, function(err, database) {
 
 });
 
-app.use(session({
-  cookieName: 'session',
+
+app.use(express.cookieParser());
+app.use(express.session({cookieName: 'session',
   secret: 'random_string_goes_here',
   duration: 30 * 60 * 1000,
-  activeDuration: 5 * 60 * 1000,
-}));
+  activeDuration: 5 * 60 * 1000,}));
 
 app.use("/", express.static(__dirname + '/'));
 
