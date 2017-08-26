@@ -17,8 +17,9 @@
 <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script>
-		 var jsonuser=getCookie("user");
+
+<script type="text/babel">
+	 var jsonuser=getCookie("user");
 		
 		
 		function getCookie(cname) {
@@ -41,9 +42,9 @@
 				 
 				 
 				if(jsonuser!=="undefined"){
-					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
+		 		$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 					$("#sign-in-with-twitter").on("click", function() {
-				     window.location.href="/logout";
+				     window.location.href="https://votingapp-isrmm.herokuapp.com/logout";
                 });
 					 
 				}else{
@@ -53,19 +54,73 @@
                 });
 				}
             });
-        </script>
+			
+var Polls = React.createClass({
+  
+  getInitialState: function () {
+    return { 
+            data:[]
 
-<script type="text/babel" src="poll.jsx"></script>
+           };
+  },
+  
+   componentDidMount: function() {
+   var urlpath="";
+   
+   if(jsonuser!=="undefined")
+   urlpath=JSON.parse(jsonuser).screen_name;
+   
+  var th = this;
+    this.serverRequest = 
+      axios.get('/apijson/'+urlpath)
+     
+        .then(function(result) {    
+      
+          th.setState({
+            data: result.data,
+ 
+          });
+      
+        })
+     
+     
+  },
+  
+  render: function () {
+     
+	 
+		 
+ console.log(this.state.data);
+		
+	
+          return (
+          <div>
+	{this.state.data.map(function(item) {
+
+          return (<a href={'/polls/'+item._id}><div className='poll'>{item.title}</div></a>)
+		  
+		  })}
+	</div>
+		
+		)
+
+}
+  
+});
+
+ReactDOM.render(<Polls/>, document.getElementById('polllist'));
+</script>
 
 <div class="navbar">
-<div class="btnnav"><a href="/">Home</a></div>
-<div class="btnnav"><a href="/mypoll">My polls</a></div>
-<div class="btnnav"><a href="/newpoll">New poll</a></div>
+<a href="https://votingapp-isrmm.herokuapp.com/"><div>Home</div></a>
+<a href="https://votingapp-isrmm.herokuapp.com/mypoll"><div>My polls</div></a>
+<a href="https://votingapp-isrmm.herokuapp.com/newpoll"><div>New poll</div></a>
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
   </div>
   
 <div class="page">
   <h1>voting</h1>
+  <h2>Below are polls you own.</h2>
   <h3>Select a poll to see the results and vote</h3>
   
   <div id="polllist"><h3>Loading...</h3></div>

@@ -1,6 +1,5 @@
 
 var Twitter = require("node-twitter-api");
-var secret = require("./lib/secret.json");
 
     var twitter = new Twitter({
         consumerKey: "tLmXhGJFnNeCt0Kc8FSkIgdkJ",
@@ -58,6 +57,19 @@ router.get('/apijson', function (req, res) {
 
 });
 
+router.get('/apijson/:user', function (req, res) {
+	var array=[];
+	
+
+  db.collection("polls").find({user: req.params.user}).toArray(function(err, result) {
+    if (err) throw err;
+	
+	res.json(result);
+  });
+
+});
+
+
 
 router.get('/polls/:id', function (req, res) {
 	
@@ -76,6 +88,17 @@ router.get('/polls/:id', function (req, res) {
 
 	
 });
+
+
+router.get('/mypoll', function (req, res) {
+	
+	if(req.session.user){
+	res.cookie("user",req.session.user);
+	res.sendFile("/mypoll.html",{root: __dirname});
+	}else
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
+});
+
 
 router.get('/vote/:id', function (req, res) {
 	var option=req.query.opt;

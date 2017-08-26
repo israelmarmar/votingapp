@@ -17,7 +17,8 @@
 <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script>
+
+<script>
 		 var jsonuser=getCookie("user");
 		
 		
@@ -55,20 +56,20 @@
             });
         </script>
 
-<script type="text/babel" src="poll.jsx"></script>
-
 <div class="navbar">
-<div class="btnnav"><a href="/">Home</a></div>
-<div class="btnnav"><a href="/mypoll">My polls</a></div>
-<div class="btnnav"><a href="/newpoll">New poll</a></div>
+<a href="https://votingapp-isrmm.herokuapp.com/"><div>Home</div></a>
+<a href="https://votingapp-isrmm.herokuapp.com/mypoll"><div>My polls</div></a>
+<a href="https://votingapp-isrmm.herokuapp.com/newpoll"><div>New poll</div></a>
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
   </div>
   
 <div class="page">
-  <h1>voting</h1>
-  <h3>Select a poll to see the results and vote</h3>
-  
-  <div id="polllist"><h3>Loading...</h3></div>
+  <h1>Make a new poll!</h1>
+<label >Title: </label>
+<input type="text" name="title"><br>
+<label >Options (seperated by line): </label>
+<textarea ng-model="newPollOptions" ng-list="
+" ng-trim="false" rows="4"></textarea>
   </div>
   
 
