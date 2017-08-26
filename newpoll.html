@@ -66,10 +66,12 @@
 <div class="page">
   <h1>Make a new poll!</h1>
 <label >Title: </label>
+<form action="/action_page.php" method="get">
 <input type="text" name="title"><br>
 <label >Options (seperated by line): </label>
 <textarea ng-model="newPollOptions" ng-list="
 " ng-trim="false" rows="4"></textarea>
+</form>
   </div>
   
 

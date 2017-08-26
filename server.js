@@ -99,6 +99,31 @@ router.get('/mypoll', function (req, res) {
 	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
 });
 
+router.get('/newpoll', function (req, res) {
+	var array=[];
+	
+	
+	
+	if(req.session.user){
+		
+		for(var i=0;i<req.query.newPollOptions.split("\n").length,i++){
+		array.push({option:req.query.newPollOptions.split("\n")[i],freq:0});
+		}
+		
+		var myobj = {_id: encod(req.query.title), user: JSON.parse(req.session.user).screen_name, 
+		title: req.query.title,
+		chart array: 
+		 };
+		 
+		db.collection("polls").insertOne(myobj, function(err, res) {
+			if (err) throw err;
+			res.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(req.query.title));
+		});
+	
+	}else
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
+});
+
 
 router.get('/vote/:id', function (req, res) {
 	var option=req.query.opt;
