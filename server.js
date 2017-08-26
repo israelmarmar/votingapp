@@ -147,7 +147,7 @@ router.get('/', function (req, res) {
 	res.sendFile("/main.html",{root: __dirname});
 });
 
-router.get('/sign-out', function (req, res) {
+router.get('/logout', function (req, res) {
 	req.session.reset();
 	res.clearCookie('user');
 	res.redirect("https://votingapp-isrmm.herokuapp.com");
