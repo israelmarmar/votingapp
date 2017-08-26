@@ -148,7 +148,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
-	req.session.reset();
+	req.session.destroy();
 	res.clearCookie('user');
 	res.redirect("https://votingapp-isrmm.herokuapp.com");
 });
