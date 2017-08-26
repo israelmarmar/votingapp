@@ -177,7 +177,10 @@ router.get("/request-token", function(req, res) {
                     if (err)
                         res.status(500).send(err);
                     else{
+						if (JSON.stringify(user))
                         req.session.user = JSON.stringify(user);
+					else
+						req.session.user="";
                         res.redirect("https://votingapp-isrmm.herokuapp.com/");
                     }
                 });

@@ -36,12 +36,12 @@
         }
           return "";
       }
-		alert(jsonuser!==undefined);
+		alert(jsonuser!=="");
 		
              $(function() {
 				 
 				 
-				if(jsonuser!==undefined){
+				if(jsonuser!==""){
 		 		$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 					$("#sign-in-with-twitter").on("click", function() {
 				     window.location.href="https://votingapp-isrmm.herokuapp.com/sign-out";
