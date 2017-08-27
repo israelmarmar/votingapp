@@ -127,7 +127,7 @@ router.get('/new', function (req, res) {
 			if (err) throw err;
 			res.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(title));
 		});
-	
+	 
 	}else
 	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
 });
