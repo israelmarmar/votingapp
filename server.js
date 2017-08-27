@@ -109,7 +109,7 @@ router.get('/newpoll', function (req, res) {
 
 router.get('/new', function (req, res) {
 	var array=[];
-	
+	var title=req.query.title;
 	
 	
 	if(req.session.user){
@@ -118,14 +118,14 @@ router.get('/new', function (req, res) {
 		array.push({option:req.query.options.split("\n")[i],freq:0});
 		}
 		
-		var myobj = {_id: encod(req.query.title), user: JSON.parse(req.session.user).screen_name, 
+		var myobj = {_id: encod(title), user: JSON.parse(req.session.user).screen_name, 
 		title: req.query.title,
 		chart: array
 		 };
 		 
 		db.collection("polls").insertOne(myobj, function(err, res) {
 			if (err) throw err;
-			res.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(req.query.title));
+			res.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(title));
 		});
 	
 	}else
