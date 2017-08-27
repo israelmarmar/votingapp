@@ -100,8 +100,11 @@ router.get('/mypoll', function (req, res) {
 });
 
 router.get('/newpoll', function (req, res) {
+	if(req.session.user){
 	res.cookie("user",req.session.user);
 	res.sendFile("/newpoll.html",{root: __dirname});
+	}else
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
 });
 
 router.get('/new', function (req, res) {
