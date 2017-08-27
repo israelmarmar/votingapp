@@ -139,6 +139,10 @@ var resp=res;
 
  var myquery = { _id: req.params.id };
  var newvalues={};
+ var usrip=req.session.user?JSON.parse(req.session.user).screen_name: (req.headers['x-forwarded-for'] || 
+        req.connection.remoteAddress || 
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress);
   
   db.collection("polls").findOne(myquery,function(err, result) {
 	  if (err) throw err;
@@ -152,10 +156,7 @@ var resp=res;
 		 }
 	  }
 	  
-		db.collection("uservote").findOne({userip: JSON.parse(req.session.user).screen_name || req.headers['x-forwarded-for'] || 
-        req.connection.remoteAddress || 
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress, idpoll: req.params.id},function(err, result) {
+		db.collection("uservote").findOne({userip: usrip, idpoll: req.params.id},function(err, result) {
 			if (err) throw err;
 			console.log(result);
 			
@@ -165,10 +166,7 @@ var resp=res;
 				db.collection("polls").updateOne(myquery, newvalues, function(err, res) {
 				if (err) throw err;
 	
-				db.collection("uservote").insertOne({userip: JSON.parse(req.session.user).screen_name || req.headers['x-forwarded-for'] || 
-				req.connection.remoteAddress || 
-				req.socket.remoteAddress ||
-				req.connection.socket.remoteAddress, idpoll: req.params.id}, function(err, res) {
+				db.collection("uservote").insertOne({userip: usrip, idpoll: req.params.id}, function(err, res) {
 				if (err) throw err;
 				});
 		
