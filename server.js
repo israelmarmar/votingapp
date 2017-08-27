@@ -113,7 +113,7 @@ router.get('/new', function (req, res) {
 	
 	
 	if(req.session.user){
-		var resp=res;
+
 		for(var i=0;i<req.query.options.split("\r\n").length;i++){
 		array.push({option:req.query.options.split("\r\n")[i],freq:0});
 		}
@@ -125,9 +125,9 @@ router.get('/new', function (req, res) {
 		 
 		db.collection("polls").insertOne(myobj, function(err, res) {
 			if (err) throw err;
-			resp.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(title));
+			
 		});
-	 
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(title));
 	}else
 	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
 });
