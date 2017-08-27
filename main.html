@@ -42,12 +42,18 @@
 				 
 				if(jsonuser!=="undefined"){
 					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
+					$("home").css("display","block");
+					$("mypolls").css("display","block");
+					$("newpoll").css("display","block");
 					$("#sign-in-with-twitter").on("click", function() {
 				     window.location.href="/logout";
                 });
 					 
 				}else{
 				$("#sign-in-with-twitter").text("Sign in with Twitter");
+				$("home").css("display","none");
+				$("mypolls").css("display","none");
+				$("newpoll").css("display","none");
                 $("#sign-in-with-twitter").on("click", function() {
                     window.location.href = "/request-token";
                 });
@@ -58,9 +64,13 @@
 <script type="text/babel" src="poll.jsx"></script>
 
 <div class="navbar">
-<div class="btnnav"><a href="/">Home</a></div>
-<div class="btnnav"><a href="/mypoll">My polls</a></div>
-<div class="btnnav"><a href="/newpoll">New poll</a></div>
+
+<div id="btnsnav">
+<div class="btnnav" id="home"><a href="/">Home</a></div>
+<div class="btnnav" id="mypolls"><a href="/mypoll">My polls</a></div>
+<div class="btnnav" id="newpoll"><a href="/newpoll">New poll</a></div>
+</div>
+
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
   </div>
   

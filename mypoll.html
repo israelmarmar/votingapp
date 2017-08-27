@@ -38,17 +38,20 @@
           return "";
       }
 		
-             $(function() {
-				 
-				 
-				if(jsonuser!=="undefined"){
-		 		$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
+             if(jsonuser!=="undefined"){
+					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
+					$("home").css("display","block");
+					$("mypolls").css("display","block");
+					$("newpoll").css("display","block");
 					$("#sign-in-with-twitter").on("click", function() {
-				     window.location.href="https://votingapp-isrmm.herokuapp.com/logout";
+				     window.location.href="/logout";
                 });
 					 
 				}else{
 				$("#sign-in-with-twitter").text("Sign in with Twitter");
+				$("home").css("display","none");
+				$("mypolls").css("display","none");
+				$("newpoll").css("display","none");
                 $("#sign-in-with-twitter").on("click", function() {
                     window.location.href = "/request-token";
                 });
@@ -112,9 +115,11 @@ ReactDOM.render(<Polls/>, document.getElementById('polllist'));
 </script>
 
 <div class="navbar">
-<a href="https://votingapp-isrmm.herokuapp.com/"><div>Home</div></a>
-<a href="https://votingapp-isrmm.herokuapp.com/mypoll"><div>My polls</div></a>
-<a href="https://votingapp-isrmm.herokuapp.com/newpoll"><div>New poll</div></a>
+<div id="btnsnav">
+<div class="btnnav" id="home"><a href="https://votingapp-isrmm.herokuapp.com/">Home</a></div>
+<div class="btnnav" id="mypolls"><a href="https://votingapp-isrmm.herokuapp.com/mypoll">My polls</a></div>
+<div class="btnnav" id="newpoll"><a href="https://votingapp-isrmm.herokuapp.com/newpoll">New poll</a></div>
+</div>
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
   </div>
   

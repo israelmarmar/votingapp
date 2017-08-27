@@ -82,6 +82,7 @@ font-family: sans-serif;
 width:200px;	
 	position:relative;
 	left:80%;
+	bottom:10px;
 }
 
 .navbar{
@@ -97,6 +98,9 @@ width:200px;
 background-color: #e6e6e6;
 	 padding: 10px 15px;
 	margin-bottom: -1px;
+	
+	text-align:left;
+	height:50px;
 }
 
 label {
@@ -104,4 +108,23 @@ label {
     max-width: 100%;
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+.btnnav{
+
+display: block;
+float:left;
+padding-left: 50px;
+
+}
+
+#btnsnav{
+  position:relative;
+  top:10px;
+  left:140px;
+  right:0px;
+  margin-left: auto;
+    margin-right: auto;
+width:500px;
+height:30px;	
 }

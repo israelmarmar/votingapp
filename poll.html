@@ -21,6 +21,11 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 	<div class="navbar">
+<div id="btnsnav">
+<div class="btnnav" id="home"><a href="https://votingapp-isrmm.herokuapp.com/">Home</a></div>
+<div class="btnnav" id="mypolls"><a href="https://votingapp-isrmm.herokuapp.com/mypoll">My polls</a></div>
+<div class="btnnav" id="newpoll"><a href="https://votingapp-isrmm.herokuapp.com/newpoll">New poll</a></div>
+</div>
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
   </div>
 	
@@ -40,15 +45,21 @@ var jsonuser=getCookie("user");
 				 
 				 
 				if(jsonuser!=="undefined"){
-		 		$("#sign-in-with-twitter").text(""+JSON.parse(jsonuser).name+" Sign out");
+					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
+					$("home").css("display","block");
+					$("mypolls").css("display","block");
+					$("newpoll").css("display","block");
 					$("#sign-in-with-twitter").on("click", function() {
-				     window.location.href="https://votingapp-isrmm.herokuapp.com/logout";
+				     window.location.href="/logout";
                 });
 					 
 				}else{
 				$("#sign-in-with-twitter").text("Sign in with Twitter");
+				$("home").css("display","none");
+				$("mypolls").css("display","none");
+				$("newpoll").css("display","none");
                 $("#sign-in-with-twitter").on("click", function() {
-                    window.location.href = "https://votingapp-isrmm.herokuapp.com/request-token";
+                    window.location.href = "/request-token";
                 });
 				}
             });
@@ -56,6 +67,7 @@ var jsonuser=getCookie("user");
 function send(){
 var obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
 alert(obj.msg);
+window.location.href=window.location.href;
 }
 
 function Get(yourUrl){
