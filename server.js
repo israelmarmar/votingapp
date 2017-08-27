@@ -106,13 +106,13 @@ router.get('/newpoll', function (req, res) {
 	
 	if(req.session.user){
 		
-		for(var i=0;i<req.query.newPollOptions.split("\n").length,i++){
+		for(var i=0;i<req.query.newPollOptions.split("\n").length;i++){
 		array.push({option:req.query.newPollOptions.split("\n")[i],freq:0});
 		}
 		
 		var myobj = {_id: encod(req.query.title), user: JSON.parse(req.session.user).screen_name, 
 		title: req.query.title,
-		chart array: 
+		chart: array
 		 };
 		 
 		db.collection("polls").insertOne(myobj, function(err, res) {
