@@ -40,7 +40,6 @@
 		
              if(jsonuser!=="undefined"){
 					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
-					$("#home").css("display","block");
 					$("#mypolls").css("display","block");
 					$("#newpoll").css("display","block");
 					$("#sign-in-with-twitter").on("click", function() {
@@ -49,7 +48,6 @@
 					 
 				}else{
 				$("#sign-in-with-twitter").text("Sign in with Twitter");
-				$("#home").css("display","none");
 				$("#mypolls").css("display","none");
 				$("#newpoll").css("display","none");
                 $("#sign-in-with-twitter").on("click", function() {
