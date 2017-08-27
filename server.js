@@ -114,8 +114,8 @@ router.get('/new', function (req, res) {
 	
 	if(req.session.user){
 		
-		for(var i=0;i<req.query.newPollOptions.split("\n").length;i++){
-		array.push({option:req.query.newPollOptions.split("\n")[i],freq:0});
+		for(var i=0;i<req.query.options.split("\n").length;i++){
+		array.push({option:req.query.options.split("\n")[i],freq:0});
 		}
 		
 		var myobj = {_id: encod(req.query.title), user: JSON.parse(req.session.user).screen_name, 
