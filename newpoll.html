@@ -38,7 +38,10 @@
           return "";
       }
 		
-             if(jsonuser!=="undefined"){
+             $(function() {
+				 
+				 
+				if(jsonuser!=="undefined"){
 					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 					$("#mypolls").css("display","block");
 					$("#newpoll").css("display","block");
