@@ -134,7 +134,7 @@ var Select = React.createClass({
 
 			{() => {
 		  		if(jsonuser!=="undefined" && JSON.parse(jsonuser).screen_name===jsonobj.user){
-		      	return <button id=jsonobj._id className="btn btn-danger" type="button" onClick={this.deletepoll}>Remove this Poll</button>
+		      	return <button id=jsonobj._id className="btn btn-danger" onClick={this.deletepoll}>Remove this Poll</button>
 			  	}
 		 	 }()}
 	</div>
