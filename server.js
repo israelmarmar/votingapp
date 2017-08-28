@@ -154,7 +154,7 @@ var resp=res;
 		  result.chart[i].freq=result.chart[i].freq+1;
 	  	  newvalues=result;
 		 }else if (i===result.chart.length-1){
-		  result.push({option:option, freq:0});
+		  result.chart.push({option:option, freq:0});
 		  newvalues=result;
 		 }
 	  }
