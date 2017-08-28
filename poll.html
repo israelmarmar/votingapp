@@ -69,8 +69,9 @@ var obj;
 	if(document.getElementById('selec').value!=="ownop"){
 	obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
 	}
-	else
+	else{
 	obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('ownop').value));
+	}
 	
 alert(obj.msg);
 window.location.href=window.location.href;
