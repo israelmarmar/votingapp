@@ -17,7 +17,8 @@
 <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script>
+
+<script>
 		 var jsonuser=getCookie("user");
 		
 		
@@ -40,15 +41,10 @@
              $(function() {
 				 
 				 
-
-				if(jsonuser!=""){
-		 		$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
-
 				if(jsonuser!=="undefined"){
 					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 					$("#mypolls").css("display","block");
 					$("#newpoll").css("display","block");
-
 					$("#sign-in-with-twitter").on("click", function() {
 				     window.location.href="/logout";
                 });
@@ -64,25 +60,24 @@
             });
         </script>
 
-<script type="text/babel" src="poll.jsx"></script>
-
 <div class="navbar">
-
 <div id="btnsnav">
-<div class="btnnav" id="mypolls"><a href="/mypoll">My polls</a></div>
-<div class="btnnav" id="newpoll"><a href="/newpoll">New poll</a></div>
-<div class="btnnav" id="home"><a href="/">Home</a></div>
-
+<div class="btnnav" id="mypolls"><a href="https://votingapp-isrmm.herokuapp.com/mypoll">My polls</a></div>
+<div class="btnnav" id="newpoll"><a href="https://votingapp-isrmm.herokuapp.com/newpoll">New poll</a></div>
+<div class="btnnav" id="home"><a href="https://votingapp-isrmm.herokuapp.com/">Home</a></div>
 </div>
-
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
   </div>
   
 <div class="page">
-  <h1>voting</h1>
-  <h3>Select a poll to see the results and vote</h3>
-  
-  <div id="polllist"><h3>Loading...</h3></div>
+  <h1>Make a new poll!</h1>
+<label >Title: </label>
+<form action="https://votingapp-isrmm.herokuapp.com/new" method="get">
+<input type="text" name="title"><br>
+<label >Options (seperated by line): </label><br>
+<textarea name="options" rows="4"></textarea><br>
+<input type="submit" value="Make!">
+</form>
   </div>
   
 

@@ -1,6 +1,5 @@
 
 var Twitter = require("node-twitter-api");
-var secret = require("./lib/secret.json");
 
     var twitter = new Twitter({
         consumerKey: "tLmXhGJFnNeCt0Kc8FSkIgdkJ",
@@ -58,6 +57,19 @@ router.get('/apijson', function (req, res) {
 
 });
 
+router.get('/apijson/:user', function (req, res) {
+	var array=[];
+	
+
+  db.collection("polls").find({user: req.params.user}).toArray(function(err, result) {
+    if (err) throw err;
+	
+	res.json(result);
+  });
+
+});
+
+
 
 router.get('/polls/:id', function (req, res) {
 	
@@ -67,7 +79,8 @@ router.get('/polls/:id', function (req, res) {
 
 	
 		if(result)
-		res.setHeader("Set-Cookie", ["json="+JSON.stringify(result)]);
+			res.cookie("user",req.session.user);
+			res.cookie("json",JSON.stringify(result));
 	res.sendFile("/poll.html",{root: __dirname});
 
     
@@ -76,12 +89,60 @@ router.get('/polls/:id', function (req, res) {
 	
 });
 
+
+router.get('/mypoll', function (req, res) {
+	
+	if(req.session.user){
+	res.cookie("user",req.session.user);
+	res.sendFile("/mypoll.html",{root: __dirname});
+	}else
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
+});
+
+router.get('/newpoll', function (req, res) {
+	if(req.session.user){
+	res.cookie("user",req.session.user);
+	res.sendFile("/newpoll.html",{root: __dirname});
+	}else
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
+});
+
+router.get('/new', function (req, res) {
+	var array=[];
+	var title=req.query.title;
+	
+	
+	if(req.session.user){
+
+		for(var i=0;i<req.query.options.split("\r\n").length;i++){
+		array.push({option:req.query.options.split("\r\n")[i],freq:0});
+		}
+		
+		var myobj = {_id: encod(title), user: JSON.parse(req.session.user).screen_name, 
+		title: req.query.title,
+		chart: array
+		 };
+		 
+		db.collection("polls").insertOne(myobj, function(err, res) {
+			if (err) throw err;
+			
+		});
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(title));
+	}else
+	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
+});
+
+
 router.get('/vote/:id', function (req, res) {
 	var option=req.query.opt;
 var resp=res;
 
  var myquery = { _id: req.params.id };
  var newvalues={};
+ var usrip=req.session.user?JSON.parse(req.session.user).screen_name: (req.headers['x-forwarded-for'] || 
+        req.connection.remoteAddress || 
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress);
   
   db.collection("polls").findOne(myquery,function(err, result) {
 	  if (err) throw err;
@@ -95,10 +156,7 @@ var resp=res;
 		 }
 	  }
 	  
-		db.collection("uservote").findOne({userip: req.headers['x-forwarded-for'] || 
-        req.connection.remoteAddress || 
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress, idpoll: req.params.id},function(err, result) {
+		db.collection("uservote").findOne({userip: usrip, idpoll: req.params.id},function(err, result) {
 			if (err) throw err;
 			console.log(result);
 			
@@ -108,10 +166,7 @@ var resp=res;
 				db.collection("polls").updateOne(myquery, newvalues, function(err, res) {
 				if (err) throw err;
 	
-				db.collection("uservote").insertOne({userip: req.headers['x-forwarded-for'] || 
-				req.connection.remoteAddress || 
-				req.socket.remoteAddress ||
-				req.connection.socket.remoteAddress, idpoll: req.params.id}, function(err, res) {
+				db.collection("uservote").insertOne({userip: usrip, idpoll: req.params.id}, function(err, res) {
 				if (err) throw err;
 				});
 		
@@ -147,8 +202,8 @@ router.get('/', function (req, res) {
 	res.sendFile("/main.html",{root: __dirname});
 });
 
-router.get('/sign-out', function (req, res) {
-	req.session.reset();
+router.get('/logout', function (req, res) {
+	req.session.destroy();
 	res.clearCookie('user');
 	res.redirect("https://votingapp-isrmm.herokuapp.com");
 });

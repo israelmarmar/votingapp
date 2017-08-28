@@ -21,6 +21,12 @@
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 	<div class="navbar">
+<div id="btnsnav">
+<div class="btnnav" id="mypolls"><a href="https://votingapp-isrmm.herokuapp.com/mypoll">My polls</a></div>
+<div class="btnnav" id="newpoll"><a href="https://votingapp-isrmm.herokuapp.com/newpoll">New poll</a></div>
+<div class="btnnav" id="home"><a href="https://votingapp-isrmm.herokuapp.com/">Home</a></div>
+
+</div>
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
   </div>
 	
@@ -34,17 +40,23 @@
 	 
 var jsonuser=getCookie("user");
  var jsonobj=JSON.parse(getCookie("json"));
-	
-	 $(function() {
+
+		
+             $(function() {
 				 
-				if(isNaN(jsonuser)){
-		 		$("#sign-in-with-twitter").text(""+JSON.parse(jsonuser).name+" Sign out");
+				 
+				if(jsonuser!=="undefined"){
+					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
+					$("#mypolls").css("display","block");
+					$("#newpoll").css("display","block");
 					$("#sign-in-with-twitter").on("click", function() {
-				     window.location.href="https://votingapp-isrmm.herokuapp.com/sign-out";
+				     window.location.href="/logout";
                 });
 					 
 				}else{
 				$("#sign-in-with-twitter").text("Sign in with Twitter");
+				$("#mypolls").css("display","none");
+				$("#newpoll").css("display","none");
                 $("#sign-in-with-twitter").on("click", function() {
                     window.location.href = "/request-token";
                 });
@@ -54,6 +66,7 @@ var jsonuser=getCookie("user");
 function send(){
 var obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
 alert(obj.msg);
+window.location.href=window.location.href;
 }
 
 function Get(yourUrl){
@@ -86,7 +99,7 @@ function getCookie(cname) {
 
 
 <script type="text/babel" >
-
+var jsonuser=getCookie("user");
 var jsonobj=JSON.parse(getCookie("json"));
 
 document.title=jsonobj.title;
@@ -115,20 +128,44 @@ console.log(array);
 
 var Select = React.createClass({
  
+ handleChange: function () {
+
+     if(event.target.value=="I'd like to vote for...: "){
+	 	this.setState({ disp: "block" });
+	 }else{
+	 	this.setState({ disp: "none" });
+	 }
+    
+    
+  },
   
   render: function () {
-	
+  
+	getInitialState: function () {
+    return {
+      disp:"none"
+	  
+	  };
+	 },
           return (
           <div>
 		  <h2>{jsonobj.title}</h2>
 		  <h2 style={{fontSize: "14px"}}><b>I'd like to vote for...:</b></h2>
-		  <select id="selec">
+		  <select id="selec"  onChange={this.handleChange}>
 	{jsonobj.chart.map(function(item) {
 
           return (<option value={item.option}>{item.option}</option>)
 		  
 		  })}
+		  
+		  if(jsonuser!=="undefined"){
+		  <option value={"ownop"}>{"I'd like to vote for...: "}</option>
+		  }
+		  
 		  </select>
+		  <label style={{display: this.state.disp}}>Vote with my own option: 
+</label>
+<input type="text" style={{display: this.state.disp}} id="ownop">
 	</div>
 		
 		)
