@@ -50,7 +50,7 @@ var jsonuser=getCookie("user");
 					$("#mypolls").css("display","block");
 					$("#newpoll").css("display","block");
 					$("#sign-in-with-twitter").on("click", function() {
-				     window.location.href="/logout";
+				     window.location.href="https://votingapp-isrmm.herokuapp.com//logout";
                 });
 					 
 				}else{
@@ -58,7 +58,7 @@ var jsonuser=getCookie("user");
 				$("#mypolls").css("display","none");
 				$("#newpoll").css("display","none");
                 $("#sign-in-with-twitter").on("click", function() {
-                    window.location.href = "/request-token";
+                    window.location.href = "https://votingapp-isrmm.herokuapp.com//request-token";
                 });
 				}
             });

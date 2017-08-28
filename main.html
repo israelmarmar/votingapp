@@ -37,18 +37,14 @@
           return "";
       }
 		
+            
              $(function() {
 				 
 				 
-
-				if(jsonuser!=""){
-		 		$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
-
 				if(jsonuser!=="undefined"){
 					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 					$("#mypolls").css("display","block");
 					$("#newpoll").css("display","block");
-
 					$("#sign-in-with-twitter").on("click", function() {
 				     window.location.href="/logout";
                 });
@@ -62,6 +58,8 @@
                 });
 				}
             });
+				 
+		
         </script>
 
 <script type="text/babel" src="poll.jsx"></script>
