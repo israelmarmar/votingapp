@@ -29,6 +29,18 @@ function tweet(){
 
 }
 
+
+function deletepoll(evt) {
+var obj;
+
+    if (confirm("Are you sure to remove this poll?") == true) {
+     obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/delete/"+evt.target.id);
+      alert(obj.msg);
+	window.location.href="https://votingapp-isrmm.herokuapp.com/";
+    } 
+
+}
+
 function send(){
 var obj;
 	

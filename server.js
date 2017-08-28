@@ -69,8 +69,6 @@ router.get('/apijson/:user', function (req, res) {
 
 });
 
-
-
 router.get('/polls/:id', function (req, res) {
 	
 
@@ -130,6 +128,23 @@ router.get('/new', function (req, res) {
 	 res.redirect("https://votingapp-isrmm.herokuapp.com/polls/"+encod(title));
 	}else
 	 res.redirect("https://votingapp-isrmm.herokuapp.com/");	
+});
+
+router.get('/delete/:id', function (req, res) {
+	
+	 db.collection("polls").findOne({ _id: req.params.id },function(err, result) {
+	  if (err) throw err;
+		 
+	  	if(req.session.user && result.user===JSON.parse(req.session.user).screen_name){
+			db.collection("customers").deleteOne(myquery, function(err, obj) {
+    		if (err) throw err;
+    		res.json({msg: "Successfully removed the poll."});
+  			});
+		}else{
+		res.json({msg: "Permission denied."});
+		}
+	 });
+	
 });
 
 
