@@ -159,9 +159,11 @@ var Select = React.createClass({
 		  
 		  })}
 		  
+		  {() => {
 		  if(jsonuser!=="undefined"){
-		  <option value={"ownop"}>{"I'd like to vote for...: "}</option>
-		  }
+		      <option value={"ownop"}>{jsonuser}</option>;
+			  }
+		  }()}
 		  
 		  </select>
 		  <label style={{display: this.state.disp}}>Vote with my own option: 
