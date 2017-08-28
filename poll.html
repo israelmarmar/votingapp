@@ -135,8 +135,9 @@ var Select = React.createClass({
 	  };
 	 },
  
- handleChange: function () {
+ handleChange: function (event) {
 
+console.log(event.target.value);
      if(event.target.value=="I'd like to vote for...: "){
 	 	this.setState({ disp: "block" });
 	 }else{
