@@ -121,6 +121,12 @@ var Select = React.createClass({
 		  <label style={{display: this.state.disp}}>Vote with my own option: 
 </label>
 <input type="text" style={{display: this.state.disp}} id="ownop"/>
+
+			{() => {
+		  		if(jsonuser!=="undefined" && JSON.parse(jsonuser).screen_name===jsonobj.user){
+		      	return <button className="btn btn-danger" type="button">Remove this Poll</button>
+			  	}
+		 	 }()}
 	</div>
 		
 		)
