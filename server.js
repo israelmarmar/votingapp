@@ -138,7 +138,7 @@ router.get('/vote/:id', function (req, res) {
 var resp=res;
 
  var myquery = { _id: req.params.id };
- var newvalues={};
+ var newvalues=null;
  var usrip=req.session.user?JSON.parse(req.session.user).screen_name: (req.headers['x-forwarded-for'] || 
         req.connection.remoteAddress || 
         req.socket.remoteAddress ||
@@ -153,7 +153,7 @@ var resp=res;
 		 if(result.chart[i].option==option){
 		  result.chart[i].freq=result.chart[i].freq+1;
 	  	  newvalues=result;
-		 }else if (i===result.chart.length-1){
+		 }else if ((i===result.chart.length-1)&&(req.session.user)){
 		  result.chart.push({option:option, freq:0});
 		  newvalues=result;
 		 }
@@ -165,7 +165,7 @@ var resp=res;
 			
 			if(result)
 			resp.json({msg:"Error: You can only vote once a poll. [user-or-ip-voted]"});
-			else{
+			else if (newvalues){
 				db.collection("polls").updateOne(myquery, newvalues, function(err, res) {
 				if (err) throw err;
 	
@@ -177,6 +177,8 @@ var resp=res;
     
 			});
   
+			}else{
+			resp.json({msg:"Error: User is not signed"});	
 			}
 		
 			
