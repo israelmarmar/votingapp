@@ -67,10 +67,10 @@ function send(){
 var obj;
 	
 	if(document.getElementById('selec').value!=="ownop"){
-	obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
+	obj=JSON.parse(Get("https://localhost:3000/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
 	}
 	else{
-	obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('ownop').value));
+	obj=JSON.parse(Get("https://localhost:3000/vote/"+jsonobj._id+"?opt="+document.getElementById('ownop').value));
 	}
 	
 alert(obj.msg);
