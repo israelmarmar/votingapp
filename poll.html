@@ -25,7 +25,7 @@
 <div class="btnnav" id="mypolls"><a href="https://votingapp-isrmm.herokuapp.com/mypoll">My polls</a></div>
 <div class="btnnav" id="newpoll"><a href="https://votingapp-isrmm.herokuapp.com/newpoll">New poll</a></div>
 <div class="btnnav" id="home"><a href="https://votingapp-isrmm.herokuapp.com/">Home</a></div>
-	<script src="https://votingapp-isrmm.herokuapp.com/jsonfunctions.js"></script>
+	<script src="https://localhost:3000/jsonfunctions.js"></script>
 
 </div>
   <button class="btn btn-primary" id="sign-in-with-twitter"></button>
@@ -37,6 +37,9 @@
 
  <div id="sel"></div>
  <button onclick="send()">Submit</button>
+	<button id = "tweet" class = "btn btn-primary" onclick="tweet()">
+        tweet
+      </button>
 
 
  <div id="piechart"></div>
@@ -47,6 +50,8 @@
 <script type="text/babel" >
 var jsonuser=getCookie("user");
 var jsonobj=JSON.parse(getCookie("json"));
+
+
 
 document.title=jsonobj.title;
 
