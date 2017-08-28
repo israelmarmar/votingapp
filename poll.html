@@ -64,7 +64,13 @@ var jsonuser=getCookie("user");
             });
 	 
 function send(){
-var obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
+var obj;
+	
+	if(document.getElementById('selec').value!=="ownop")
+	obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('selec').value));
+	else
+	obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/vote/"+jsonobj._id+"?opt="+document.getElementById('ownop').value));
+	
 alert(obj.msg);
 window.location.href=window.location.href;
 }

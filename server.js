@@ -152,7 +152,10 @@ var resp=res;
 	  for(var i=0;i<result.chart.length;i++){
 		 if(result.chart[i].option==option){
 		  result.chart[i].freq=result.chart[i].freq+1;
-	  newvalues=result;
+	  	  newvalues=result;
+		 }else if (i===result.chart.length-1){
+		  result.push({option:option, freq:0});
+		  newvalues=result;
 		 }
 	  }
 	  
