@@ -44,7 +44,7 @@
 
  <div id="piechart"></div>
   </div>
-  
+
 <script type="text/babel" >
 var jsonuser=getCookie("user");
 var jsonobj=JSON.parse(getCookie("json"));
@@ -130,8 +130,11 @@ var Select = React.createClass({
 </label>
 <input type="text" style={{display: this.state.disp}} id="ownop"/>
 
-		 <button id={jsonobj._id} className="btn btn-danger" onClick={this.deletepoll}>{"Remove this Poll"}</button>
-			  
+			{() => {
+		  		if(jsonuser!=="undefined" && JSON.parse(jsonuser).screen_name===jsonobj.user){
+		      	return <button id={jsonobj._id} className="btn btn-danger" onClick={this.deletepoll}>{"Remove this Poll"}</button>
+			  	}
+		 	 }()}
 	</div>
 		
 		)
