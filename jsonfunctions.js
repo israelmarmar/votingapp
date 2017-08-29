@@ -1,6 +1,5 @@
-	 
 var jsonuser=getCookie("user");
- var jsonobj=JSON.parse(getCookie("json"));
+var jsonobj=JSON.parse(getCookie("json"));
 
 		
              $(function() {
