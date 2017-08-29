@@ -136,7 +136,7 @@ router.get('/delete/:id', function (req, res) {
 	  if (err) throw err;
 		 console.log(result);
 	  	if(req.session.user && result.user===JSON.parse(req.session.user).screen_name){
-			db.collection("customers").deleteOne(myquery, function(err, obj) {
+			db.collection("polls").deleteOne({ _id: req.params.id }, function(err, obj) {
     		if (err) throw err;
     		resp.json({msg: "Successfully removed the poll."});
   			});
