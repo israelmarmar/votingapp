@@ -43,10 +43,8 @@
 
 
  <div id="piechart"></div>
-  </div>s
-
-
-
+  </div>
+  
 <script type="text/babel" >
 var jsonuser=getCookie("user");
 var jsonobj=JSON.parse(getCookie("json"));
@@ -69,7 +67,7 @@ ar.push(jsonobj.chart[i].freq);
 }
 console.log(array);
   var data = google.visualization.arrayToDataTable(array);
-  var options = {'title':"",'width':900, 'height':700,'backgroundColor': 'transparent'};
+  var options = {'title':"",'width':800, 'height':700,'backgroundColor': 'transparent'};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -132,11 +130,8 @@ var Select = React.createClass({
 </label>
 <input type="text" style={{display: this.state.disp}} id="ownop"/>
 
-			{() => {
-		  		if(jsonuser!=="undefined" && JSON.parse(jsonuser).screen_name===jsonobj.user){
-		      	return <button id={jsonobj._id} className="btn btn-danger" onClick={this.deletepoll}>{"Remove this Poll"}</button>
-			  	}
-		 	 }()}
+		 <button id={jsonobj._id} className="btn btn-danger" onClick={this.deletepoll}>{"Remove this Poll"}</button>
+			  
 	</div>
 		
 		)
