@@ -131,17 +131,17 @@ router.get('/new', function (req, res) {
 });
 
 router.get('/delete/:id', function (req, res) {
-	
+	var resp=res;
 	 db.collection("polls").findOne({ _id: req.params.id },function(err, result) {
 	  if (err) throw err;
-		 
+		 console.log(result);
 	  	if(req.session.user && result.user===JSON.parse(req.session.user).screen_name){
 			db.collection("customers").deleteOne(myquery, function(err, obj) {
     		if (err) throw err;
-    		res.json({msg: "Successfully removed the poll."});
+    		resp.json({msg: "Successfully removed the poll."});
   			});
 		}else{
-		res.json({msg: "Permission denied."});
+		resp.json({msg: "Permission denied."});
 		}
 	 });
 	
