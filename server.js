@@ -162,7 +162,7 @@ var resp=res;
   db.collection("polls").findOne(myquery,function(err, result) {
 	  if (err) throw err;
 	  
-	  
+	  //t
 	  
 	  for(var i=0;i<result.chart.length;i++){
 		 if(result.chart[i].option==option){
@@ -204,12 +204,6 @@ var resp=res;
 
 
 	
-});
-
-router.get('/user/:user', function (req, res) {
-	req.session.user=req.params.user;
-
-	    res.send('<p>Cookie Set: <a href="/user">View Here</a>');
 });
 
 router.get('/user/', function (req, res) {

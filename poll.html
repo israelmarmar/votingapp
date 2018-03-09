@@ -7,33 +7,27 @@
    <title></title>
    
  
-   <link rel='stylesheet' type='text/css' href='https://votingapp-isrmm.herokuapp.com/styles.css'>
+   <link rel='stylesheet' type='text/css' href='../styles.css'>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
 
 </head>
 
 <body translate='no' >
 
-<script src='https://fb.me/react-0.14.3.js'></script>
-<script src='https://fb.me/react-dom-0.14.3.js'></script>
-<script src="https://www.gstatic.com/charts/loader.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js'></script>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-	<div class="navbar">
-<div id="btnsnav">
-<div class="btnnav" id="mypolls"><a href="https://votingapp-isrmm.herokuapp.com/mypoll">My polls</a></div>
-<div class="btnnav" id="newpoll"><a href="https://votingapp-isrmm.herokuapp.com/newpoll">New poll</a></div>
-<div class="btnnav" id="home"><a href="https://votingapp-isrmm.herokuapp.com/">Home</a></div>
-	<script src="https://votingapp-isrmm.herokuapp.com/jsonfunctions.js"></script>
+	<div class="navbar container">
 
-</div>
-  <button class="btn btn-primary" id="sign-in-with-twitter"></button>
-  </div>
+<ul id="btnsnav">
+<li class="btnnav"><button class="btn btn-primary" id="sign-in-with-twitter"></button></li>
+<li class="btnnav an" id="mypolls"><a href="/mypoll">My polls</a></li>
+<li class="btnnav an"  id="newpoll"><a href="/newpoll">New poll</a></li>
+<li class="btnnav an" id="home"><a href="/">Home</a></li>
+</ul>
+
+	</div>
 	
 	
-	
-<div class='page'>
+<div class='page container'>
 
  <div id="sel"></div>
  <button onclick="send()">Submit</button>
@@ -45,107 +39,7 @@
  <div id="piechart"></div>
   </div>
 
-<script type="text/babel" >
-var jsonuser=getCookie("user");
-var jsonobj=JSON.parse(getCookie("json"));
-
-
-document.title=jsonobj.title;
-
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-var array=[];
-array.push(["option","freq"]);
-for(var i=0;i<jsonobj.chart.length;i++){
-var ar=[];
-ar.push(jsonobj.chart[i].option);
-ar.push(jsonobj.chart[i].freq);
-
-	array.push(ar);
-}
-console.log(array);
-  var data = google.visualization.arrayToDataTable(array);
-  var options = {'title':"",'width':800, 'height':700,'backgroundColor': 'transparent'};
-
-  // Display the chart inside the <div> element with id="piechart"
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-  chart.draw(data, options);
-}
-
-var Select = React.createClass({
- 
- getInitialState: function () {
-    return {
-      disp:"none"
-	  
-	  };
-	 },
- 
- handleChange: function (event) {
-
-
-     if(event.target.value=="ownop"){
-	 	this.setState({ disp: "block" });
-	 }else{
-	 	this.setState({ disp: "none" });
-	 }
-    
-    
-  },
-  
-  deletepoll: function(evt){
-  var obj;
-
-    if (confirm("Are you sure to remove this poll?") == true) {
-     obj=JSON.parse(Get("https://votingapp-isrmm.herokuapp.com/delete/"+evt.target.id));
-      alert(obj.msg);
-	window.location.href="https://votingapp-isrmm.herokuapp.com/";
-    }
-	
-	},
-  
-  render: function () {
-  
-          return (
-          <div>
-		  <h2>{jsonobj.title}</h2>
-		  <h2 style={{fontSize: "14px"}}><b>I'd like to vote for...:</b></h2>
-		  <select id="selec"  onChange={this.handleChange}>
-	{jsonobj.chart.map(function(item) {
-
-          return (<option value={item.option}>{item.option}</option>)
-		  
-		  })}
-		  
-		  {() => {
-		  if(jsonuser!=="undefined"){
-		      return <option value={"ownop"}>{"I'd like to vote for...: "}</option>
-			  }
-		  }()}
-		  
-		  </select>
-		  <label style={{display: this.state.disp}}>Vote with my own option: 
-</label>
-<input type="text" style={{display: this.state.disp}} id="ownop"/>
-
-			{() => {
-		  		if(jsonuser!=="undefined" && JSON.parse(jsonuser).screen_name===jsonobj.user){
-		      	return <button id={jsonobj._id} className="btn btn-danger" onClick={this.deletepoll}>{"Remove this Poll"}</button>
-			  	}
-		 	 }()}
-	</div>
-		
-		)
-
-}
-  
-});
-
-ReactDOM.render(<Select/>, document.getElementById('sel'));
-
-</script>
+<script src="../dist/apoll.js"></script>
 
 
 </body>

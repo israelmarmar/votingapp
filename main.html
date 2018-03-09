@@ -12,87 +12,27 @@
 
 <body translate="no" >
 
-<script src="https://fb.me/react-0.14.3.js"></script>
-<script src="https://fb.me/react-dom-0.14.3.js"></script>
-<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://votingapp-isrmm.herokuapp.com/jsonfunctions.js"></script>
 
-<script type="text/babel">
-	
-	var Polls = React.createClass({
-  
-  getInitialState: function () {
-    return { 
-            data:[]
+<div class="navbar container">
 
-           };
-  },
-  
-   componentDidMount: function() {
-   
-  var th = this;
-    this.serverRequest = 
-      axios.get("/apijson")
-     
-        .then(function(result) {    
-      
-          th.setState({
-            data: result.data,
+<ul id="btnsnav">
+<li class="btnnav"><button class="btn btn-primary" id="sign-in-with-twitter"></button></li>
+<li class="btnnav an" id="mypolls"><a href="/mypoll">My polls</a></li>
+<li class="btnnav an"  id="newpoll"><a href="/newpoll">New poll</a></li>
+<li class="btnnav an" id="home"><a href="/">Home</a></li>
+</ul>
+
  
-          });
-      
-        })
-     
-     
-  },
-  
-  render: function () {
-     
-	 
-		 
- console.log(this.state.data);
-		
-	
-          return (
-          <div>
-	{this.state.data.map(function(item) {
-
-          return (<a href={'/polls/'+item._id}><div className='poll'>{item.title}</div></a>)
-		  
-		  })}
-	</div>
-		
-		)
-
-}
-  
-});
-
-ReactDOM.render(<Polls/>, document.getElementById('polllist'));
-	</script>
-
-<div class="navbar">
-
-<div id="btnsnav">
-<div class="btnnav" id="mypolls"><a href="/mypoll">My polls</a></div>
-<div class="btnnav" id="newpoll"><a href="/newpoll">New poll</a></div>
-<div class="btnnav" id="home"><a href="/">Home</a></div>
-
 </div>
-
-  <button class="btn btn-primary" id="sign-in-with-twitter"></button>
-  </div>
   
-<div class="page">
+<div class="page container">
   <h1>voting</h1>
   <h3>Select a poll to see the results and vote</h3>
   
-  <div id="polllist"><h3>Loading...</h3></div>
+  <div id="polllist"></div>
   </div>
   
-
+<script src="/dist/app.js"></script>
 
 </body>
 </html>

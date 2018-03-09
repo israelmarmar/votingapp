@@ -1,11 +1,20 @@
-var jsonuser=getCookie("user");
-var jsonobj=JSON.parse(getCookie("json"));
+import $ from "jquery";
 
-		
-             $(function() {
+export let jsonuser=getCookie("user");
+export let jsonobj=JSON.parse(getCookie("json")!==""?getCookie("json"):'{}');
+
+	export const init = () => {
+		console.log("init")
 				 
+				$("#sign-in-with-twitter").text("Sign in with Twitter");
+				$("#mypolls").css("display","none");
+				$("#newpoll").css("display","none");
+                $("#sign-in-with-twitter").on("click", function() {
+                    window.location.href = "https://votingapp-isrmm.herokuapp.com/request-token";
+                });
 				 
 				if(jsonuser!=="undefined"){
+					console.log(jsonuser)
 					$("#sign-in-with-twitter").text(JSON.parse(jsonuser).name+" Sign out");
 					$("#mypolls").css("display","block");
 					$("#newpoll").css("display","block");
@@ -13,16 +22,11 @@ var jsonobj=JSON.parse(getCookie("json"));
 				     window.location.href="https://votingapp-isrmm.herokuapp.com/logout";
                 });
 					 
-				}else{
-				$("#sign-in-with-twitter").text("Sign in with Twitter");
-				$("#mypolls").css("display","none");
-				$("#newpoll").css("display","none");
-                $("#sign-in-with-twitter").on("click", function() {
-                    window.location.href = "https://votingapp-isrmm.herokuapp.com/request-token";
-                });
 				}
-            });
-	 
+
+
+}
+
 function tweet(){
  window.open("https://twitter.com/intent/tweet?url=https://votingapp-isrmm.herokuapp.com/polls/"+jsonobj._id+"&text="+jsonobj.title,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 
@@ -50,6 +54,8 @@ function Get(yourUrl){
 }
 
 function getCookie(cname) {
+console.log("cook")
+	
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -62,5 +68,6 @@ function getCookie(cname) {
             return c.substring(name.length, c.length);
         }
     }
+    
     return "";
 }
