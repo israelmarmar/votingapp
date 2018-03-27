@@ -2,8 +2,8 @@
 var Twitter = require("node-twitter-api");
 
     var twitter = new Twitter({
-        consumerKey: "tLmXhGJFnNeCt0Kc8FSkIgdkJ",
-    	consumerSecret:"D8aCOoe7lsEXH4Zu5TzgZphmwmyIp3bxnKTftM281xjeEfYZrI",
+        consumerKey: process.env.CONS_KEY,
+  consumerSecret:process.env.CONS_SECRET,
     	callback: "https://votingapp-isrmm.herokuapp.com/access-token"
     });
   
